@@ -1,3 +1,7 @@
 # Diagramas de classe
 
 Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve começar com um número de dois dígitos, na ordem crescente.
+
+## 00 - Teste/Sugestão: Mermaid
+
+[![](https://mermaid.ink/img/pako:eNptkc9OwzAMxl8l8omJ9QWqXRBjEgdOu6FIyE1MFzVxIH80wdi7k3Y0jI2c7J_zWZ_tAyivCVpQFmNcG-wDOsmivDs2Dq1YfTWNWGc1XNONibtr-kxdwD-4FbeGk8CeLvE2BcO96Ik1hfPiKIlP6Ep4s7goOEw0w8n2ZO9wAqI27QiHe299qIW4N24WlvQ9oxrm_Hjebxys9mtG79F80iNviFLFCvkB07_6aQW_hjrvrTDxZW-srjBkrlpYgqPg0OhyiUknIe3IkYS2hJpeMdskQfL4FXPy2w9W0KaQaQn5TZeN_NzuBI_fJHSQVA?type=png)](https://mermaid.live/edit#pako:eNptkc9OwzAMxl8l8omJ9QWqXRBjEgdOu6FIyE1MFzVxIH80wdi7k3Y0jI2c7J_zWZ_tAyivCVpQFmNcG-wDOsmivDs2Dq1YfTWNWGc1XNONibtr-kxdwD-4FbeGk8CeLvE2BcO96Ik1hfPiKIlP6Ep4s7goOEw0w8n2ZO9wAqI27QiHe299qIW4N24WlvQ9oxrm_Hjebxys9mtG79F80iNviFLFCvkB07_6aQW_hjrvrTDxZW-srjBkrlpYgqPg0OhyiUknIe3IkYS2hJpeMdskQfL4FXPy2w9W0KaQaQn5TZeN_NzuBI_fJHSQVA)
