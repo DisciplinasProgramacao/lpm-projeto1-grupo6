@@ -7,10 +7,14 @@
 ```mermaid
 classDiagram
     class Produto {
-      +String descricao
-      +float precoDeCusto
-      +float precoDeVenda
-      +float margemDeLucro
-      +float valorDeImpostos
+      -String descricao
+      -float precoCusto
+      -int margemLucro
+      -float precoVenda
+      -float valorLucro
+      -float valorImpostos
+      +Produto()
+      +Produto(descricao : String, precoCusto : float, margemLucro : int)
+      -calcularValores()
     }
 ```
