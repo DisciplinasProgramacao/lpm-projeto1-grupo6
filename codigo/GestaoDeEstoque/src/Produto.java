@@ -1,30 +1,44 @@
+import java.security.InvalidParameterException;
+
 public class Produto {
+	private static int proximoId = 0;
 	private String descricao;
 	private float precoCusto;
 	private int margemLucro;
 	private float precoVenda;
 	private float valorLucro;
 	private float valorImpostos;
+	private int id;
 
-	public Produto(String descricao, float precoCusto, int margemLucro) throws Exception {
+	/**
+	 * Representa um objeto de produto com propriedades de vendas e descrição
+	 * 
+	 * @param descricao
+	 * @param precoCusto 
+	 * @param margemLucro
+	 * @throws InvalidParameterException
+	 */
+	public Produto(String descricao, float precoCusto, int margemLucro) throws InvalidParameterException {
 		if (descricao.length() < 3) {
-			throw new Exception("Erro ao cadastrar o produto: A descrição deve conter pelo menos três caracteres");
+			throw new InvalidParameterException("Erro ao cadastrar o produto: A descrição deve conter pelo menos três caracteres");
 		}
 		if (precoCusto <= 0) {
-			throw new Exception("Erro ao cadastrar o produto: O preço de custo deve ser maior do que zero");
+			throw new InvalidParameterException("Erro ao cadastrar o produto: O preço de custo deve ser maior do que zero");
 		}
 		if (margemLucro < 30 || margemLucro > 80) {
-			throw new Exception("Erro ao cadastrar o produto: A margem deve ser entre 30% e 80%");
+			throw new InvalidParameterException("Erro ao cadastrar o produto: A margem deve ser entre 30% e 80%");
 		}
 		this.descricao = descricao;
 		this.precoCusto = precoCusto;
 		this.margemLucro = margemLucro;
-		calcularValores();
+		this.id = Produto.proximoId++;
+		calcularValoresDeVenda();
 	}
 
-	private void calcularValores() {
+
+	private void calcularValoresDeVenda() {
 		this.valorLucro = (this.margemLucro / 100) * this.precoCusto;
-		this.valorImpostos = (this.precoCusto + this.valorLucro) * (18 / 100);
+		this.valorImpostos = (this.precoCusto + this.valorLucro) * (18 / 100);	
 		this.precoVenda = this.precoCusto + this.valorImpostos + this.valorLucro;
 	}
 
@@ -52,4 +66,7 @@ public class Produto {
 		return valorImpostos;
 	}
 
+	public int getId() {
+		return this.id;
+	}
 }
