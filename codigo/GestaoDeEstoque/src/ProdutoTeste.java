@@ -3,11 +3,19 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.security.InvalidParameterException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ProdutoTeste {
+    Produto p; // Instancia de produto
 
-    Produto produtoTeste = new Produto("teste para fluxo perfeito", 100, 30);
+    /**
+     * Preparando para cada teste um novo produto
+     */
+    @BeforeEach
+    public void prepare() {
+        p = new Produto("Descrição para fluxo típico", 100, 30);
+    }
 
     /**
      * Teste em prol de verificar se a descrição é aceita com MENOS de 3 caracteres.
@@ -49,7 +57,8 @@ public class ProdutoTeste {
      */
     @Test
     public void retornarCalculoDeValordeVenda() {
-        assertEquals(100, produtoTeste.getPrecoVenda());
+        p.calcularValoresDeVenda();
+        assertEquals(153, p.getPrecoVenda()); // 153
     }
 
     /**
@@ -57,7 +66,7 @@ public class ProdutoTeste {
      */
     @Test
     public void precoDeCustoDeveSerIGualAoInserido() {
-        assertEquals(100, produtoTeste.getPrecoCusto());
+        assertEquals(100, p.getPrecoCusto());
     }
 
 }

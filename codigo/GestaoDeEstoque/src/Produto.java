@@ -12,18 +12,20 @@ public class Produto {
 
 	/**
 	 * Representa um objeto de produto com propriedades de vendas e descrição
-	 * 
+	 *
 	 * @param descricao
-	 * @param precoCusto 
+	 * @param precoCusto
 	 * @param margemLucro
 	 * @throws InvalidParameterException
 	 */
 	public Produto(String descricao, float precoCusto, int margemLucro) throws InvalidParameterException {
 		if (descricao.length() < 3) {
-			throw new InvalidParameterException("Erro ao cadastrar o produto: A descrição deve conter pelo menos três caracteres");
+			throw new InvalidParameterException(
+					"Erro ao cadastrar o produto: A descrição deve conter pelo menos três caracteres");
 		}
 		if (precoCusto <= 0) {
-			throw new InvalidParameterException("Erro ao cadastrar o produto: O preço de custo deve ser maior do que zero");
+			throw new InvalidParameterException(
+					"Erro ao cadastrar o produto: O preço de custo deve ser maior do que zero");
 		}
 		if (margemLucro < 30 || margemLucro > 80) {
 			throw new InvalidParameterException("Erro ao cadastrar o produto: A margem deve ser entre 30% e 80%");
@@ -35,10 +37,12 @@ public class Produto {
 		calcularValoresDeVenda();
 	}
 
-
-	private void calcularValoresDeVenda() {
-		this.valorLucro = (this.margemLucro / 100) * this.precoCusto;
-		this.valorImpostos = (this.precoCusto + this.valorLucro) * (18 / 100);	
+	/**
+	 *
+	*/
+	public void calcularValoresDeVenda() {
+		valorLucro = (this.margemLucro / 100) * precoCusto;
+		this.valorImpostos = (this.precoCusto + this.valorLucro) * (18 / 100);
 		this.precoVenda = this.precoCusto + this.valorImpostos + this.valorLucro;
 	}
 
