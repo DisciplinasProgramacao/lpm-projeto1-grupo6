@@ -2,9 +2,10 @@ import java.security.InvalidParameterException;
 
 public class Produto {
 	private static int proximoId = 0;
+	public static float PERCENTUAL_IMPOSTOS = 18;
 	private String descricao;
 	private float precoCusto;
-	private int margemLucro;
+	private float margemLucro;
 	private float precoVenda;
 	private float valorLucro;
 	private float valorImpostos;
@@ -18,7 +19,7 @@ public class Produto {
 	 * @param margemLucro
 	 * @throws InvalidParameterException
 	 */
-	public Produto(String descricao, float precoCusto, int margemLucro) throws InvalidParameterException {
+	public Produto(String descricao, float precoCusto, float margemLucro) throws InvalidParameterException {
 		if (descricao.length() < 3) {
 			throw new InvalidParameterException(
 					"Erro ao cadastrar o produto: A descrição deve conter pelo menos três caracteres");
@@ -37,13 +38,10 @@ public class Produto {
 		calcularValoresDeVenda();
 	}
 
-	/**
-	 *
-	*/
 	public void calcularValoresDeVenda() {
-		valorLucro = (this.margemLucro / 100) * precoCusto;
-		this.valorImpostos = (this.precoCusto + this.valorLucro) * (18 / 100);
-		this.precoVenda = this.precoCusto + this.valorImpostos + this.valorLucro;
+		this.valorLucro = ((float) this.margemLucro / 100) * this.precoCusto;
+		this.valorImpostos = (this.precoCusto + this.valorLucro) * (Produto.PERCENTUAL_IMPOSTOS / 100);
+		this.precoVenda = (float) Math.floor(this.precoCusto + this.valorImpostos + this.valorLucro);
 	}
 
 	public String getDescricao() {
@@ -54,7 +52,7 @@ public class Produto {
 		return precoCusto;
 	}
 
-	public int getMargemLucro() {
+	public float getMargemLucro() {
 		return margemLucro;
 	}
 
