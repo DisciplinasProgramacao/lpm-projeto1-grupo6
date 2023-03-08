@@ -12,7 +12,7 @@ public class EstoqueTeste {
 	}
 
 	@Test
-	public void adicionarNovoProdutoCasoEleNaoEstejaNoEstoqueAoFazerReposicao() {
+	public void produtosSaoAdicionadosEmSequencia() {
 		Estoque estoque = new Estoque(2);
 		Produto produtoA = new Produto("Banana", 10, 50);
 		Produto produtoB = new Produto("Maçã", 20, 30);

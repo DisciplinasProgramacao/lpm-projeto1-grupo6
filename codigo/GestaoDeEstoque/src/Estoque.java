@@ -28,11 +28,11 @@ public class Estoque {
 		return -1;
 	}
 
-	public void repor(Produto produtoA, int quantidade) {
+	public void repor(Produto produto, int quantidade) {
 		if (estaVazio()) {
-			produtos[0] = produtoA;
+			produtos[0] = produto;
 		} else {
-			produtos[tamanho] = produtoA;
+			produtos[tamanho] = produto;
 		}
 		tamanho++;
 	}
