@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.security.InvalidParameterException;
 
+import javax.naming.SizeLimitExceededException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +31,7 @@ public class EstoqueTeste {
 	public void impedirAdicaoDeProdutoSeEstoqueCheio() {
 		try {
 			estoque.adicionar(lista[0], 0);
-			assertThrowsExactly(Exception.class, () -> estoque.adicionar(lista[1], 0));
+			assertThrowsExactly(SizeLimitExceededException.class, () -> estoque.adicionar(lista[1], 0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
