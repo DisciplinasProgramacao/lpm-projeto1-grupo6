@@ -1,7 +1,3 @@
-import java.security.InvalidParameterException;
-
-import javax.naming.SizeLimitExceededException;
-
 public class Estoque {
 	private Produto[] listaProduto;
 	private int tamanho;
@@ -9,7 +5,7 @@ public class Estoque {
 
 	public Estoque(int tamanho) {
 		if (tamanho < 1)
-			throw new InvalidParameterException("Erro ao criar estoque: O estoque deve ter pelo menos 1 produto");
+			return;
 
 		listaProduto = new Produto[tamanho];
 		listaQuantidade = new int[tamanho];
@@ -32,26 +28,26 @@ public class Estoque {
 		return -1;
 	}
 
-	public boolean produtoCadastrado(Produto produto) {
-		return indexProduto(produto) != -1;
-	}
-
 	public int quantidade(Produto produto) {
 		return listaQuantidade[indexProduto(produto)];
 	}
 
-	public void cadastrar(Produto produto) throws SizeLimitExceededException {
-		if (estaCheio()) {
-			throw new SizeLimitExceededException("Erro ao cadastrar produto: O estoque está cheio!");
-		}
+	public void cadastrar(Produto produto) {
+		if (estaCheio())
+			return;
+
+		if (indexProduto(produto) >= 0)
+			return;
 
 		listaProduto[tamanho] = produto;
-		listaQuantidade[tamanho] = 0;
 		tamanho++;
 	}
 
 	public void repor(Produto produto, int quantidade) {
-		if (produtoCadastrado(produto))
-			listaQuantidade[indexProduto(produto)] += quantidade;
+		int aux = indexProduto(produto);
+		if (aux < 0)
+			return;
+
+		listaQuantidade[aux] += quantidade;
 	}
 }
