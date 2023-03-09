@@ -6,27 +6,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EstoqueTeste {
-	Estoque estoque;
-	Produto produtoA;
-	Produto produtoB;
+	private Estoque estoque;
+	private Produto[] lista;
 
 	@BeforeEach
 	public void initEach() {
-		estoque = new Estoque(1);
-		produtoA = new Produto("Banana", 10, 50);
-		produtoB = new Produto("Maçã", 20, 50);
+		lista = new Produto[5];
+		lista[0] = new Produto("Pão", 10, 30);
+		lista[1] = new Produto("Banana", 15, 35);
+		lista[2] = new Produto("Maçã", 20, 40);
+		lista[3] = new Produto("Cerveja", 25, 45);
+		lista[4] = new Produto("Picanha", 30, 50);
 	}
 
 	@Test
 	public void estoqueDeveConterPeloMenos1Produto() {
+		estoque = new Estoque(1);
 		assertThrowsExactly(InvalidParameterException.class, () -> new Estoque(0));
 	}
 
 	@Test
 	public void impedirAdicaoDeProdutoSeEstoqueCheio() {
 		try {
-			estoque.adicionar(produtoA);
-			assertThrowsExactly(Exception.class, () -> estoque.adicionar(produtoB));
+			estoque.adicionar(lista[0]);
+			assertThrowsExactly(Exception.class, () -> estoque.adicionar(lista[1]));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
