@@ -1,8 +1,9 @@
 import java.security.InvalidParameterException;
 
 public class Estoque {
-	Produto[] listaProduto;
-	int tamanho;
+	private Produto[] listaProduto;
+	private int tamanho;
+	private int[] listaQuantidade;
 
 	public Estoque(int tamanho) {
 		if (tamanho < 1)
@@ -28,11 +29,15 @@ public class Estoque {
 		return -1;
 	}
 
-	public void adicionar(Produto produto) throws Exception {
+	public void adicionar(Produto produto, int quantidade) throws Exception {
+		if (quantidade < 0) {
+			throw new InvalidParameterException("Erro ao adicionar produto: A quantidade deve ser um número positivo!");
+		}
 		if (estaCheio()) {
 			throw new Exception("Erro ao adicionar produto: O estoque está cheio!");
 		}
 		listaProduto[tamanho] = produto;
+		listaQuantidade[tamanho] = quantidade;
 		tamanho++;
 	}
 }

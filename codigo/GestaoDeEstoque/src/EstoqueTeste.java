@@ -11,6 +11,7 @@ public class EstoqueTeste {
 
 	@BeforeEach
 	public void initEach() {
+		estoque = new Estoque(1);
 		lista = new Produto[5];
 		lista[0] = new Produto("Pão", 10, 30);
 		lista[1] = new Produto("Banana", 15, 35);
@@ -21,17 +22,21 @@ public class EstoqueTeste {
 
 	@Test
 	public void estoqueDeveConterPeloMenos1Produto() {
-		estoque = new Estoque(1);
 		assertThrowsExactly(InvalidParameterException.class, () -> new Estoque(0));
 	}
 
 	@Test
 	public void impedirAdicaoDeProdutoSeEstoqueCheio() {
 		try {
-			estoque.adicionar(lista[0]);
-			assertThrowsExactly(Exception.class, () -> estoque.adicionar(lista[1]));
+			estoque.adicionar(lista[0], 0);
+			assertThrowsExactly(Exception.class, () -> estoque.adicionar(lista[1], 0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void quantidadeAdicionadaNaoPodeSerMenorQueZero() {
+		assertThrowsExactly(InvalidParameterException.class, () -> estoque.adicionar(lista[0], -1));
 	}
 }
