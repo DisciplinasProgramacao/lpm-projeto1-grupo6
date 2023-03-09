@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
@@ -56,7 +57,7 @@ public class ProdutoTeste {
      * Teste para verificação para cálculo de valor de venda.
      */
     @Test
-    public void retornarCalculoDeValordeVenda() {
+    public void precoVendaDeveResultarCalculoCorreto() {
         p.calcularValoresDeVenda();
         assertEquals(153, p.getPrecoVenda()); // 153
     }
@@ -69,4 +70,20 @@ public class ProdutoTeste {
         assertEquals(100, p.getPrecoCusto());
     }
 
+    /**
+     * Verificando se o VALOR DO LUCRO é igual ao inserido.
+     */
+    @Test
+    public void valorLucroDeverSerIgualAoInserido() {
+        assertEquals(30, p.getValorLucro(), 0.5);
+    }
+
+    /**
+     * Verificando se o VALOR DOS IMPOSTOS é igual ao inserido.
+     */
+    @Test
+    public void valorImpostosDeveSerIgualAoInserido() {
+        assertEquals(23, p.getValorImpostos(), 0.5);
+
+    }
 }
