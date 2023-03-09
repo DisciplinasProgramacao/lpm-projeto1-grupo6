@@ -12,6 +12,7 @@ public class Estoque {
 			throw new InvalidParameterException("Erro ao criar estoque: O estoque deve ter pelo menos 1 produto");
 
 		listaProduto = new Produto[tamanho];
+		listaQuantidade = new int[tamanho];
 		this.tamanho = 0;
 	}
 
@@ -31,15 +32,26 @@ public class Estoque {
 		return -1;
 	}
 
-	public void adicionar(Produto produto, int quantidade) throws SizeLimitExceededException {
-		if (quantidade < 0) {
-			throw new InvalidParameterException("Erro ao adicionar produto: A quantidade deve ser um número positivo!");
-		}
+	public boolean produtoCadastrado(Produto produto) {
+		return indexProduto(produto) != -1;
+	}
+
+	public int quantidade(Produto produto) {
+		return listaQuantidade[indexProduto(produto)];
+	}
+
+	public void cadastrar(Produto produto) throws SizeLimitExceededException {
 		if (estaCheio()) {
-			throw new SizeLimitExceededException("Erro ao adicionar produto: O estoque está cheio!");
+			throw new SizeLimitExceededException("Erro ao cadastrar produto: O estoque está cheio!");
 		}
+
 		listaProduto[tamanho] = produto;
-		listaQuantidade[tamanho] = quantidade;
+		listaQuantidade[tamanho] = 0;
 		tamanho++;
+	}
+
+	public void repor(Produto produto, int quantidade) {
+		if (produtoCadastrado(produto))
+			listaQuantidade[indexProduto(produto)] += quantidade;
 	}
 }

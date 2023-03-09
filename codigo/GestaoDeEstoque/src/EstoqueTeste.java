@@ -1,3 +1,4 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.security.InvalidParameterException;
@@ -9,17 +10,17 @@ import org.junit.jupiter.api.Test;
 
 public class EstoqueTeste {
 	private Estoque estoque;
-	private Produto[] lista;
+	private Produto[] listaProduto;
 
 	@BeforeEach
 	public void initEach() {
 		estoque = new Estoque(1);
-		lista = new Produto[5];
-		lista[0] = new Produto("Pão", 10, 30);
-		lista[1] = new Produto("Banana", 15, 35);
-		lista[2] = new Produto("Maçã", 20, 40);
-		lista[3] = new Produto("Cerveja", 25, 45);
-		lista[4] = new Produto("Picanha", 30, 50);
+		listaProduto = new Produto[5];
+		listaProduto[0] = new Produto("Pão", 10, 30);
+		listaProduto[1] = new Produto("Banana", 15, 35);
+		listaProduto[2] = new Produto("Maçã", 20, 40);
+		listaProduto[3] = new Produto("Cerveja", 25, 45);
+		listaProduto[4] = new Produto("Picanha", 30, 50);
 	}
 
 	@Test
@@ -30,15 +31,24 @@ public class EstoqueTeste {
 	@Test
 	public void impedirAdicaoDeProdutoSeEstoqueCheio() {
 		try {
-			estoque.adicionar(lista[0], 0);
-			assertThrowsExactly(SizeLimitExceededException.class, () -> estoque.adicionar(lista[1], 0));
+			estoque.cadastrar(listaProduto[0]);
+			assertThrowsExactly(SizeLimitExceededException.class, () -> estoque.cadastrar(listaProduto[1]));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void quantidadeAdicionadaNaoPodeSerMenorQueZero() {
-		assertThrowsExactly(InvalidParameterException.class, () -> estoque.adicionar(lista[0], -1));
+	public void reporEstoqueIncrementaAQuantidade() {
+		try {
+			estoque = new Estoque(5);
+			estoque.cadastrar(listaProduto[0]);
+			estoque.cadastrar(listaProduto[1]);
+			assertEquals(0, estoque.quantidade(listaProduto[1]));
+			estoque.repor(listaProduto[1], 45);
+			assertEquals(45, estoque.quantidade(listaProduto[1]));
+		} catch (SizeLimitExceededException e) {
+			e.printStackTrace();
+		}
 	}
 }
