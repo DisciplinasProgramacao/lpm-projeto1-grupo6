@@ -1,15 +1,15 @@
 import java.security.InvalidParameterException;
 
 public class Estoque {
-	Produto[] produtos;
+	Produto[] listaProduto;
 	int tamanho;
 
 	public Estoque(int tamanho) {
 		if (tamanho < 1)
 			throw new InvalidParameterException("Erro ao criar estoque: O estoque deve ter pelo menos 1 produto");
 
-		produtos = new Produto[tamanho];
-		tamanho = 0;
+		listaProduto = new Produto[tamanho];
+		this.tamanho = 0;
 	}
 
 	public boolean estaVazio() {
@@ -17,21 +17,22 @@ public class Estoque {
 	}
 
 	public boolean estaCheio() {
-		return tamanho > produtos.length;
+		return tamanho >= listaProduto.length;
 	}
 
 	public int indexProduto(Produto produto) {
 		if (!estaVazio())
 			for (int i = 0; i < tamanho; i++)
-				if (produto.getId() == produtos[i].getId())
+				if (produto.getId() == listaProduto[i].getId())
 					return i;
 		return -1;
 	}
 
-	public void repor(Produto produto, int quantidade) throws Exception {
-		if (estaVazio()) {
-			produtos[0] = produto;
+	public void adicionar(Produto produto) throws Exception {
+		if (estaCheio()) {
+			throw new Exception("Erro ao adicionar produto: O estoque está cheio!");
 		}
+		listaProduto[tamanho] = produto;
 		tamanho++;
 	}
 }
