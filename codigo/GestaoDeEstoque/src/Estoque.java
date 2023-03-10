@@ -6,7 +6,7 @@ public class Estoque {
 
 	public Estoque(int tamanho) {
 		if (tamanho < 1)
-			return;
+			tamanho = 1;
 
 		listaProduto = new Produto[tamanho];
 		listaQuantidade = new int[tamanho];
@@ -97,6 +97,14 @@ public class Estoque {
 	}
 
 	public boolean abaixoDoMinimo(Produto produto) {
+		int aux = indexProduto(produto);
+
+		if (estaVazio())
+			return false;
+
+		if (aux < 0)
+			return false;
+
 		return listaQuantidade[indexProduto(produto)] < QUANTIDADE_MINIMA;
 	}
 

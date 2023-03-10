@@ -4,75 +4,75 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EstoqueTeste {
-	private Estoque estoque;
+	private Estoque estoqueCheio;
 	private Produto[] listaProduto;
 
 	@BeforeEach
 	public void initEach() {
-		estoque = new Estoque(5);
+		estoqueCheio = new Estoque(5);
+
 		listaProduto = new Produto[5];
 		listaProduto[0] = new Produto("Pão", 10, 30);
 		listaProduto[1] = new Produto("Banana", 15, 35);
 		listaProduto[2] = new Produto("Maçã", 20, 40);
 		listaProduto[3] = new Produto("Cerveja", 25, 45);
 		listaProduto[4] = new Produto("Picanha", 30, 50);
+
+		estoqueCheio.cadastrar(listaProduto[0]);
+		estoqueCheio.cadastrar(listaProduto[1]);
+		estoqueCheio.cadastrar(listaProduto[2]);
+		estoqueCheio.cadastrar(listaProduto[3]);
+		estoqueCheio.cadastrar(listaProduto[4]);
 	}
 
 	@Test
 	public void produtosDevemSerCadastradosEmSequencia() {
-		estoque.cadastrar(listaProduto[0]);
-		estoque.cadastrar(listaProduto[1]);
-		assertEquals(0, estoque.indexProduto(listaProduto[0]));
-		assertEquals(1, estoque.indexProduto(listaProduto[1]));
+		assertEquals(0, estoqueCheio.indexProduto(listaProduto[0]));
+		assertEquals(1, estoqueCheio.indexProduto(listaProduto[1]));
+		assertEquals(2, estoqueCheio.indexProduto(listaProduto[2]));
+		assertEquals(3, estoqueCheio.indexProduto(listaProduto[3]));
+		assertEquals(4, estoqueCheio.indexProduto(listaProduto[4]));
 	}
 
 	@Test
 	public void reporEstoqueIncrementaAQuantidade() {
-		estoque.cadastrar(listaProduto[0]);
-		assertEquals(0, estoque.quantidadeAtual(listaProduto[0]));
-		estoque.repor(listaProduto[0], 45);
-		assertEquals(45, estoque.quantidadeAtual(listaProduto[0]));
+		assertEquals(0, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		estoqueCheio.repor(listaProduto[0], 45);
+		assertEquals(45, estoqueCheio.quantidadeAtual(listaProduto[0]));
 	}
 
 	@Test
 	public void retirarDecrementaAQuantidade() {
-		estoque.cadastrar(listaProduto[4]);
-		estoque.repor(listaProduto[4], 100);
-		assertEquals(100, estoque.quantidadeAtual(listaProduto[4]));
-		estoque.retirar(listaProduto[4], 70);
-		assertEquals(30, estoque.quantidadeAtual(listaProduto[4]));
+		estoqueCheio.repor(listaProduto[4], 100);
+		assertEquals(100, estoqueCheio.quantidadeAtual(listaProduto[4]));
+		estoqueCheio.retirar(listaProduto[4], 70);
+		assertEquals(30, estoqueCheio.quantidadeAtual(listaProduto[4]));
 	}
 
 	@Test
 	public void quantidadeTotalDeveSomarTodosOsProdutos() {
-		estoque.cadastrar(listaProduto[0]);
-		estoque.cadastrar(listaProduto[1]);
-		estoque.cadastrar(listaProduto[2]);
-		estoque.repor(listaProduto[0], 100);
-		estoque.repor(listaProduto[1], 200);
-		estoque.repor(listaProduto[2], 300);
-		estoque.retirar(listaProduto[2], 50);
-		assertEquals(550, estoque.quantidadeAtual());
+		estoqueCheio.repor(listaProduto[0], 100);
+		estoqueCheio.repor(listaProduto[1], 200);
+		estoqueCheio.repor(listaProduto[2], 300);
+		estoqueCheio.retirar(listaProduto[2], 50);
+		assertEquals(550, estoqueCheio.quantidadeAtual());
 	}
 
 	@Test
 	public void precoCustoTotalDeveSomarDeTodosOsProdutosEQuantidade() {
-		estoque.cadastrar(listaProduto[0]);
-		estoque.cadastrar(listaProduto[1]);
-		estoque.cadastrar(listaProduto[2]);
-		estoque.repor(listaProduto[0], 2);
-		estoque.repor(listaProduto[1], 5);
-		estoque.repor(listaProduto[2], 10);
-		estoque.retirar(listaProduto[2], 2);
-		assertEquals(255, estoque.precoCustoAtual());
+		estoqueCheio.repor(listaProduto[0], 2);
+		estoqueCheio.repor(listaProduto[1], 5);
+		estoqueCheio.repor(listaProduto[2], 10);
+		estoqueCheio.retirar(listaProduto[2], 2);
+		assertEquals(255, estoqueCheio.precoCustoAtual());
 	}
 
 	@Test
 	public void verificarSeProdutoEstaComQuantidadeAbaixoDoMinimo() {
-		estoque.cadastrar(listaProduto[0]);
-		estoque.repor(listaProduto[0], 20);
-		assertEquals(false, estoque.abaixoDoMinimo(listaProduto[0]));
-		estoque.retirar(listaProduto[0], 10);
-		assertEquals(true, estoque.abaixoDoMinimo(listaProduto[0]));
+		estoqueCheio.repor(listaProduto[0], 20);
+		assertEquals(false, estoqueCheio.abaixoDoMinimo(listaProduto[0]));
+		estoqueCheio.retirar(listaProduto[0], 10);
+		assertEquals(true, estoqueCheio.abaixoDoMinimo(listaProduto[0]));
 	}
+
 }
