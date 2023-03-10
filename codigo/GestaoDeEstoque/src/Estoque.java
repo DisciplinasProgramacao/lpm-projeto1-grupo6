@@ -108,4 +108,16 @@ public class Estoque {
 		return listaQuantidade[indexProduto(produto)] < QUANTIDADE_MINIMA;
 	}
 
+	public String produtosQuantidadeAbaixoMinimo() {
+		if (estaVazio())
+			return "";
+
+		String aux = "";
+		for (Produto produto : listaProduto)
+			if (abaixoDoMinimo(produto))
+				aux += produto.getDescricao() + "\n";
+
+		return aux;
+	}
+
 }

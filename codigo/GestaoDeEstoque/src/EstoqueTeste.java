@@ -75,4 +75,10 @@ public class EstoqueTeste {
 		assertEquals(true, estoqueCheio.abaixoDoMinimo(listaProduto[0]));
 	}
 
+	@Test
+	public void verificarQuaisProdutosEstaoAbaixoDoMinimo() {
+		estoqueCheio.repor(listaProduto[0], 1000);
+		estoqueCheio.repor(listaProduto[4], 1000);
+		assertEquals("Banana\nMaçã\nCerveja\n", estoqueCheio.produtosQuantidadeAbaixoMinimo());
+	}
 }
