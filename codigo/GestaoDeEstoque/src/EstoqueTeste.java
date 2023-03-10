@@ -33,4 +33,25 @@ public class EstoqueTeste {
 		estoque.repor(listaProduto[0], 45);
 		assertEquals(45, estoque.quantidade(listaProduto[0]));
 	}
+
+	@Test
+	public void retirarDecrementaAQuantidade() {
+		estoque.cadastrar(listaProduto[4]);
+		estoque.repor(listaProduto[4], 100);
+		assertEquals(100, estoque.quantidade(listaProduto[4]));
+		estoque.retirar(listaProduto[4], 70);
+		assertEquals(30, estoque.quantidade(listaProduto[4]));
+	}
+
+	@Test
+	public void quantidadeTotalDeveSomarTodosOsProdutos() {
+		estoque.cadastrar(listaProduto[0]);
+		estoque.cadastrar(listaProduto[1]);
+		estoque.cadastrar(listaProduto[2]);
+		estoque.repor(listaProduto[0], 100);
+		estoque.repor(listaProduto[1], 200);
+		estoque.repor(listaProduto[2], 300);
+		estoque.retirar(listaProduto[2], 50);
+		assertEquals(550, estoque.quantidade());
+	}
 }

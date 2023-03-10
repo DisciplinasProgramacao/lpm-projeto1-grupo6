@@ -45,9 +45,33 @@ public class Estoque {
 
 	public void repor(Produto produto, int quantidade) {
 		int aux = indexProduto(produto);
+
 		if (aux < 0)
 			return;
 
 		listaQuantidade[aux] += quantidade;
+	}
+
+	public void retirar(Produto produto, int quantidade) {
+		int aux = indexProduto(produto);
+
+		if (aux < 0)
+			return;
+
+		if (quantidade > quantidade(produto))
+			return;
+
+		listaQuantidade[aux] -= quantidade;
+	}
+
+	public int quantidade() {
+		if (estaVazio())
+			return -1;
+
+		int aux = 0;
+		for (int quantidade : listaQuantidade)
+			aux += quantidade;
+
+		return aux;
 	}
 }
