@@ -1,4 +1,5 @@
 public class Estoque {
+	private static int QUANTIDADE_MINIMA = 20;
 	private Produto[] listaProduto;
 	private int tamanho;
 	private int[] listaQuantidade;
@@ -93,6 +94,10 @@ public class Estoque {
 			precoCustoAtual += precoCustoAtual(listaProduto[i]) * quantidadeAtual(listaProduto[i]);
 
 		return precoCustoAtual;
+	}
+
+	public boolean abaixoDoMinimo(Produto produto) {
+		return listaQuantidade[indexProduto(produto)] < QUANTIDADE_MINIMA;
 	}
 
 }

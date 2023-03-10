@@ -66,4 +66,13 @@ public class EstoqueTeste {
 		estoque.retirar(listaProduto[2], 2);
 		assertEquals(255, estoque.precoCustoAtual());
 	}
+
+	@Test
+	public void verificarSeProdutoEstaComQuantidadeAbaixoDoMinimo() {
+		estoque.cadastrar(listaProduto[0]);
+		estoque.repor(listaProduto[0], 20);
+		assertEquals(false, estoque.abaixoDoMinimo(listaProduto[0]));
+		estoque.retirar(listaProduto[0], 10);
+		assertEquals(true, estoque.abaixoDoMinimo(listaProduto[0]));
+	}
 }
