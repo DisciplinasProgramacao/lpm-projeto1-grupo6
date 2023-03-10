@@ -28,10 +28,6 @@ public class Estoque {
 		return -1;
 	}
 
-	public int quantidade(Produto produto) {
-		return listaQuantidade[indexProduto(produto)];
-	}
-
 	public void cadastrar(Produto produto) {
 		if (estaCheio())
 			return;
@@ -52,19 +48,11 @@ public class Estoque {
 		listaQuantidade[aux] += quantidade;
 	}
 
-	public void retirar(Produto produto, int quantidade) {
-		int aux = indexProduto(produto);
-
-		if (aux < 0)
-			return;
-
-		if (quantidade > quantidade(produto))
-			return;
-
-		listaQuantidade[aux] -= quantidade;
+	public int quantidadeAtual(Produto produto) {
+		return listaQuantidade[indexProduto(produto)];
 	}
 
-	public int quantidade() {
+	public int quantidadeAtual() {
 		if (estaVazio())
 			return -1;
 
@@ -74,4 +62,37 @@ public class Estoque {
 
 		return aux;
 	}
+
+	public void retirar(Produto produto, int quantidade) {
+		int aux = indexProduto(produto);
+
+		if (aux < 0)
+			return;
+
+		if (quantidade > quantidadeAtual(produto))
+			return;
+
+		listaQuantidade[aux] -= quantidade;
+	}
+
+	public float precoCustoAtual(Produto produto) {
+		int aux = indexProduto(produto);
+
+		if (aux < 0)
+			return -1;
+
+		return listaProduto[aux].getPrecoCusto();
+	}
+
+	public float precoCustoAtual() {
+		if (estaVazio())
+			return -1;
+
+		float precoCustoAtual = 0;
+		for (int i = 0; i < tamanho; i++)
+			precoCustoAtual += precoCustoAtual(listaProduto[i]) * quantidadeAtual(listaProduto[i]);
+
+		return precoCustoAtual;
+	}
+
 }
