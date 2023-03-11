@@ -27,11 +27,11 @@ public class EstoqueTeste {
 
 	@Test
 	public void produtosDevemSerCadastradosEmSequencia() {
-		assertEquals(0, estoqueCheio.indexProduto(listaProduto[0]));
-		assertEquals(1, estoqueCheio.indexProduto(listaProduto[1]));
-		assertEquals(2, estoqueCheio.indexProduto(listaProduto[2]));
-		assertEquals(3, estoqueCheio.indexProduto(listaProduto[3]));
-		assertEquals(4, estoqueCheio.indexProduto(listaProduto[4]));
+		assertEquals(0, estoqueCheio.posicao(listaProduto[0]));
+		assertEquals(1, estoqueCheio.posicao(listaProduto[1]));
+		assertEquals(2, estoqueCheio.posicao(listaProduto[2]));
+		assertEquals(3, estoqueCheio.posicao(listaProduto[3]));
+		assertEquals(4, estoqueCheio.posicao(listaProduto[4]));
 	}
 
 	@Test
@@ -70,16 +70,16 @@ public class EstoqueTeste {
 	@Test
 	public void verificarSeProdutoEstaComQuantidadeAbaixoDoMinimo() {
 		estoqueCheio.repor(listaProduto[0], 20);
-		assertEquals(false, estoqueCheio.abaixoDoMinimo(listaProduto[0]));
+		assertEquals(false, estoqueCheio.estaAbaixoDoMinimo(listaProduto[0]));
 		estoqueCheio.retirar(listaProduto[0], 10);
-		assertEquals(true, estoqueCheio.abaixoDoMinimo(listaProduto[0]));
+		assertEquals(true, estoqueCheio.estaAbaixoDoMinimo(listaProduto[0]));
 	}
 
 	@Test
 	public void verificarQuaisProdutosEstaoAbaixoDoMinimo() {
 		estoqueCheio.repor(listaProduto[0], 1000);
 		estoqueCheio.repor(listaProduto[4], 1000);
-		assertEquals("Banana\nMaçã\nCerveja\n", estoqueCheio.produtosQuantidadeAbaixoMinimo());
+		assertEquals("Banana\nMaçã\nCerveja\n", estoqueCheio.produtosComQuantidadeAbaixoMinimo());
 	}
 
 	@Test
@@ -87,15 +87,15 @@ public class EstoqueTeste {
 		estoqueCheio.registrarCompra(listaProduto[0], 10);
 
 		assertEquals(10, estoqueCheio.quantidadeAtual(listaProduto[0]));
-		assertEquals(10, estoqueCheio.unidadesCompradas(listaProduto[0]));
-		assertEquals(100, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+		assertEquals(10, estoqueCheio.totalUnidadesCompradas(listaProduto[0]));
+		assertEquals(100, estoqueCheio.totalCustoCompra(listaProduto[0]));
 
 		estoqueCheio.registrarCompra(listaProduto[0], 10);
 		estoqueCheio.retirar(listaProduto[0], 5);
 
 		assertEquals(15, estoqueCheio.quantidadeAtual(listaProduto[0]));
-		assertEquals(20, estoqueCheio.unidadesCompradas(listaProduto[0]));
-		assertEquals(200, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+		assertEquals(20, estoqueCheio.totalUnidadesCompradas(listaProduto[0]));
+		assertEquals(200, estoqueCheio.totalCustoCompra(listaProduto[0]));
 	}
 
 	@Test
@@ -104,13 +104,13 @@ public class EstoqueTeste {
 		estoqueCheio.registrarVenda(listaProduto[0], 20);
 
 		assertEquals(80, estoqueCheio.quantidadeAtual(listaProduto[0]));
-		assertEquals(20, estoqueCheio.unidadesVendidas(listaProduto[0]));
-		assertEquals(200, estoqueCheio.faturamentoHistorico(listaProduto[0]));
+		assertEquals(20, estoqueCheio.totalUnidadesVendidas(listaProduto[0]));
+		assertEquals(200, estoqueCheio.totalFaturamento(listaProduto[0]));
 
 		estoqueCheio.registrarVenda(listaProduto[0], 40);
 
 		assertEquals(40, estoqueCheio.quantidadeAtual(listaProduto[0]));
-		assertEquals(60, estoqueCheio.unidadesVendidas(listaProduto[0]));
-		assertEquals(600, estoqueCheio.faturamentoHistorico(listaProduto[0]));
+		assertEquals(60, estoqueCheio.totalUnidadesVendidas(listaProduto[0]));
+		assertEquals(600, estoqueCheio.totalFaturamento(listaProduto[0]));
 	}
 }
