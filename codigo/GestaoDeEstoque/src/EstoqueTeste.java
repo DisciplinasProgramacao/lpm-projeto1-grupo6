@@ -83,29 +83,19 @@ public class EstoqueTeste {
 	}
 
 	@Test
-	public void registrarCompraIncrementaQuantidadeAtual() {
+	public void valoresSaoAtualizadosAoRegistrarCompra() {
 		estoqueCheio.registrarCompra(listaProduto[0], 10);
-		assertEquals(10, estoqueCheio.quantidadeAtual(listaProduto[0]));
-		estoqueCheio.registrarCompra(listaProduto[0], 30);
-		assertEquals(40, estoqueCheio.quantidadeAtual(listaProduto[0]));
-	}
 
-	@Test
-	public void registrarCompraIncrementaHistoricoQuantidades() {
+		assertEquals(10, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		assertEquals(10, estoqueCheio.unidadesCompradas(listaProduto[0]));
+		assertEquals(100, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+
 		estoqueCheio.registrarCompra(listaProduto[0], 10);
 		estoqueCheio.retirar(listaProduto[0], 5);
-		assertEquals(10, estoqueCheio.unidadesCompradas(listaProduto[0]));
-		estoqueCheio.registrarCompra(listaProduto[0], 15);
-		assertEquals(25, estoqueCheio.unidadesCompradas(listaProduto[0]));
+
+		assertEquals(15, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		assertEquals(20, estoqueCheio.unidadesCompradas(listaProduto[0]));
+		assertEquals(200, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
 	}
 
-	@Test
-	public void registrarCompraIncrementaHistoricoCustoDeAquisicao() {
-		assertEquals(0, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
-		estoqueCheio.registrarCompra(listaProduto[0], 10);
-		assertEquals(100, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
-		estoqueCheio.registrarCompra(listaProduto[0], 5);
-		estoqueCheio.retirar(listaProduto[0], 15);
-		assertEquals(150, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
-	}
 }

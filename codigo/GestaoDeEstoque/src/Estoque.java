@@ -47,6 +47,9 @@ public class Estoque {
 	public void repor(Produto produto, int quantidade) {
 		int aux = indexProduto(produto);
 
+		if (estaVazio())
+			return;
+
 		if (aux < 0)
 			return;
 
