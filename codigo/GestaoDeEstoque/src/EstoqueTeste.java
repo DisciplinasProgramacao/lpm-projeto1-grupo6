@@ -98,4 +98,19 @@ public class EstoqueTeste {
 		assertEquals(200, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
 	}
 
+	@Test
+	public void valoresSaoAtualizadosAoRegistrarVenda() {
+		estoqueCheio.repor(listaProduto[0], 100);
+		estoqueCheio.registrarVenda(listaProduto[0], 20);
+
+		assertEquals(80, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		assertEquals(20, estoqueCheio.unidadesVendidas(listaProduto[0]));
+		assertEquals(200, estoqueCheio.faturamentoHistorico(listaProduto[0]));
+
+		estoqueCheio.registrarVenda(listaProduto[0], 40);
+
+		assertEquals(40, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		assertEquals(60, estoqueCheio.unidadesVendidas(listaProduto[0]));
+		assertEquals(600, estoqueCheio.faturamentoHistorico(listaProduto[0]));
+	}
 }
