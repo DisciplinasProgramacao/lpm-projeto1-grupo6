@@ -81,4 +81,31 @@ public class EstoqueTeste {
 		estoqueCheio.repor(listaProduto[4], 1000);
 		assertEquals("Banana\nMaçã\nCerveja\n", estoqueCheio.produtosQuantidadeAbaixoMinimo());
 	}
+
+	@Test
+	public void registrarCompraIncrementaQuantidadeAtual() {
+		estoqueCheio.registrarCompra(listaProduto[0], 10);
+		assertEquals(10, estoqueCheio.quantidadeAtual(listaProduto[0]));
+		estoqueCheio.registrarCompra(listaProduto[0], 30);
+		assertEquals(40, estoqueCheio.quantidadeAtual(listaProduto[0]));
+	}
+
+	@Test
+	public void registrarCompraIncrementaHistoricoQuantidades() {
+		estoqueCheio.registrarCompra(listaProduto[0], 10);
+		estoqueCheio.retirar(listaProduto[0], 5);
+		assertEquals(10, estoqueCheio.unidadesCompradas(listaProduto[0]));
+		estoqueCheio.registrarCompra(listaProduto[0], 15);
+		assertEquals(25, estoqueCheio.unidadesCompradas(listaProduto[0]));
+	}
+
+	@Test
+	public void registrarCompraIncrementaHistoricoCustoDeAquisicao() {
+		assertEquals(0, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+		estoqueCheio.registrarCompra(listaProduto[0], 10);
+		assertEquals(100, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+		estoqueCheio.registrarCompra(listaProduto[0], 5);
+		estoqueCheio.retirar(listaProduto[0], 15);
+		assertEquals(150, estoqueCheio.custoAquisicaoHistorico(listaProduto[0]));
+	}
 }

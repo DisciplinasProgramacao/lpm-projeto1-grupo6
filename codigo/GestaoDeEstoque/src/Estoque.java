@@ -1,8 +1,10 @@
 public class Estoque {
 	private static int QUANTIDADE_MINIMA = 20;
-	private Produto[] listaProduto;
 	private int tamanho;
+	private Produto[] listaProduto;
 	private int[] listaQuantidade;
+	private int[] listaUnidadesCompradas;
+	private float[] listaCustoAquisicaoHistorico;
 
 	public Estoque(int tamanho) {
 		if (tamanho < 1)
@@ -10,6 +12,8 @@ public class Estoque {
 
 		listaProduto = new Produto[tamanho];
 		listaQuantidade = new int[tamanho];
+		listaUnidadesCompradas = new int[tamanho];
+		listaCustoAquisicaoHistorico = new float[tamanho];
 		this.tamanho = 0;
 	}
 
@@ -118,6 +122,44 @@ public class Estoque {
 				aux += produto.getDescricao() + "\n";
 
 		return aux;
+	}
+
+	public void registrarCompra(Produto produto, int quantidade) {
+		int aux = indexProduto(produto);
+
+		if (estaVazio())
+			return;
+
+		if (aux < 0)
+			return;
+
+		repor(produto, quantidade);
+		listaUnidadesCompradas[aux] += quantidade;
+		listaCustoAquisicaoHistorico[aux] += quantidade * listaProduto[aux].getPrecoCusto();
+	}
+
+	public int unidadesCompradas(Produto produto) {
+		int aux = indexProduto(produto);
+
+		if (estaVazio())
+			return -1;
+
+		if (aux < 0)
+			return -1;
+
+		return listaUnidadesCompradas[aux];
+	}
+
+	public float custoAquisicaoHistorico(Produto produto) {
+		int aux = indexProduto(produto);
+
+		if (estaVazio())
+			return -1;
+
+		if (aux < 0)
+			return -1;
+
+		return listaCustoAquisicaoHistorico[aux];
 	}
 
 }
