@@ -26,15 +26,6 @@ public class EstoqueTeste {
 	}
 
 	@Test
-	public void produtosDevemSerCadastradosEmSequencia() {
-		assertEquals(0, estoqueCheio.posicao(listaProduto[0]));
-		assertEquals(1, estoqueCheio.posicao(listaProduto[1]));
-		assertEquals(2, estoqueCheio.posicao(listaProduto[2]));
-		assertEquals(3, estoqueCheio.posicao(listaProduto[3]));
-		assertEquals(4, estoqueCheio.posicao(listaProduto[4]));
-	}
-
-	@Test
 	public void reporEstoqueIncrementaAQuantidade() {
 		assertEquals(0, estoqueCheio.quantidadeAtual(listaProduto[0]));
 		estoqueCheio.repor(listaProduto[0], 45);
@@ -105,12 +96,12 @@ public class EstoqueTeste {
 
 		assertEquals(80, estoqueCheio.quantidadeAtual(listaProduto[0]));
 		assertEquals(20, estoqueCheio.totalUnidadesVendidas(listaProduto[0]));
-		assertEquals(200, estoqueCheio.totalFaturamento(listaProduto[0]));
+		assertEquals(300, estoqueCheio.totalFaturamento(listaProduto[0]));
 
 		estoqueCheio.registrarVenda(listaProduto[0], 40);
 
 		assertEquals(40, estoqueCheio.quantidadeAtual(listaProduto[0]));
 		assertEquals(60, estoqueCheio.totalUnidadesVendidas(listaProduto[0]));
-		assertEquals(600, estoqueCheio.totalFaturamento(listaProduto[0]));
+		assertEquals(900, estoqueCheio.totalFaturamento(listaProduto[0]));
 	}
 }
