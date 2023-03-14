@@ -38,7 +38,7 @@ class Estoque {
 	 * 
 	 * @return true se o estoque não possui nenhum produto.
 	 */
-	boolean estaVazio() {
+	private boolean estaVazio() {
 		return tamanhoEstoque == 0;
 	}
 
@@ -47,7 +47,7 @@ class Estoque {
 	 * 
 	 * @return true se o estoque possui todas as posições ocupadas.
 	 */
-	boolean estaCheio() {
+	private boolean estaCheio() {
 		return tamanhoEstoque >= listaProdutos.length;
 	}
 
@@ -58,7 +58,7 @@ class Estoque {
 	 * @return -1 se o produto não for encontrado ou se o estoque está vazio ou se o
 	 *         produto é nulo.
 	 */
-	int posicao(Produto produto) {
+	private int posicao(Produto produto) {
 		if (estaVazio())
 			return -1;
 
@@ -97,8 +97,7 @@ class Estoque {
 	 * Realiza a reposição do estoque. Esse método atualiza apenas a quantidade
 	 * atual do produto.
 	 * 
-	 * Não atualiza valores totais de compra/venda ou quantidades totais
-	 * compradas/vendidas
+	 * Não atualiza valores totais de compra ou quantidades totais compradas
 	 * 
 	 * O método não faz nada se: o produto é nulo, ou a quantidade não é maior que
 	 * zero, ou o estoque está vazio, ou o produto ainda não foi cadastrado.
@@ -168,8 +167,7 @@ class Estoque {
 	 * * Realiza a retirada do estoque. Esse método atualiza apenas a quantidade
 	 * atual do produto.
 	 * 
-	 * Não atualiza valores totais de compra/venda ou quantidades totais
-	 * compradas/vendidas
+	 * Não atualiza valores totais de venda ou quantidades totais vendidas.
 	 *
 	 * @param produto    Produto a ser feita uma retirada do estoque, não nulo.
 	 * @param quantidade Quantidade a ser retirada.
@@ -256,10 +254,10 @@ class Estoque {
 	}
 
 	/**
-	 * Retorna a descrição dos produtos que estão com quantidade abaixo do mínimo,
+	 * Descrição dos produtos que estão com quantidade abaixo do mínimo,
 	 * separados por quebra de linha.
 	 * 
-	 * Retorna uma String vazia se o estoque está vazio.
+	 * @return Retorna uma String. Retorna uma String vazia se o estoque está vazio.
 	 */
 	String produtosComQuantidadeAbaixoMinimo() {
 		if (estaVazio())
