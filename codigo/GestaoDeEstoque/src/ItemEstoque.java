@@ -2,12 +2,10 @@ public class ItemEstoque {
     public int totalUnidadeCompradas = 0;
     public int totalUnidadesVendidas = 0;
     private Produto produto;
-    private Estoque estoque;
     private int quantidade;
 
-    public ItemEstoque(Produto produto, Estoque estoque) {
+    public ItemEstoque(Produto produto) {
         this.produto = produto;
-        this.estoque = estoque;
     }
 
     public void compraDeItem(int quantidade){

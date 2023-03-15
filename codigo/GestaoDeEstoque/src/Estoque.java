@@ -9,8 +9,11 @@ import java.util.List;
  */
 class Estoque {
 	private static int QUANTIDADE_MINIMA = 20;
-	private Produto[] listaProdutos;
 	private ItemEstoque[] itens;
+
+	public Estoque(ItemEstoque[] itens) {
+		this.itens = itens;
+	}
 
 	/**
 	 * Registra uma venda realizada. Atualiza os valores de quantidade atuais e
@@ -76,6 +79,10 @@ class Estoque {
 		}
 
 		return produtos;
+	}
+
+	public ItemEstoque[] getItens() {
+		return itens;
 	}
 }
 //	/**
