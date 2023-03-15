@@ -7,24 +7,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.print("Digite o tamanho de seu estoque: ");
-        Estoque estoqueCliente = new Estoque(sc.nextInt());
         System.out.print("Digite até quantos produtos podem ser cadastrados: ");
-        Produto[] listaProduto = new Produto[sc.nextInt()];
+        Estoque estoque = null;
 
-        cadastraProduto(estoqueCliente);
-        cadastraProduto(estoqueCliente);
-        escolhaDeAcao(listaProduto, estoqueCliente);
+        escolhaDeAcao(estoque);
     }
-    private static void escolhaDeAcao(Produto[] listaProduto, Estoque estoqueCliente) {
+    private static void escolhaDeAcao(Estoque estoqueCliente) {
+
+        if(estoqueCliente == null) {
+            System.out.println("Determine o tamanho do estoque:");
+            int qtd = sc.nextInt();
+
+            estoqueCliente = new Estoque(qtd);
+        }
 
         System.out.println("1 - Registrar venda" + "\n2 - Registrar pedido de compra" + "\n3 - Consultar quantidade de" +
-                "um produto" + "\n4 - Consultar quantidade total no estoque" + "\n5 - Balanço da empresa");
+                "um produto" + "\n4 - Consultar quantidade total no estoque" + "\n5 - Balanço da empresa" + "" +
+                "\n6 - Cadastrar produto");
         System.out.print("Digite qual operação deseja realizar: ");
         switch (sc.nextInt()) {
 
             case 1:
-                registraVenda(listaProduto, estoqueCliente);
+                registraVenda(estoqueCliente);
+            case 6:
+                cadastraProduto(estoqueCliente);
                 break;
 //            case 2:
 //                registraCompra(listaProduto, estoqueCliente);
@@ -32,18 +38,16 @@ public class Main {
         }
     }
 
-    private static void registraVenda(Produto[] listaProduto, Estoque estoqueCliente) {
+    private static void registraVenda(Estoque estoqueCliente) {
 
-        int produtoAVender = estoqueCliente.posicao();
-
-        if (!estoqueCliente.estaAbaixoDoMinimo(listaProduto[produtoAVender])) {
-
-            estoqueCliente.registrarVenda();
-            estoqueCliente.registrarVenda(listaProduto[produtoAVender], qtd);
-            estoqueCliente.quantidadeAtual();
-        }
-
+        System.out.println("Digite o id do produto a ser vendido: ");
+        int id = sc.nextInt();
+        System.out.println("Digite a quantidade do produto");
+        int quantidade = sc.nextInt();
+        ItemEstoque itemEstoque = estoqueCliente.retornaItem(id);
+        estoqueCliente.registrarRetirada(itemEstoque.getProduto(), quantidade, false);
     }
+
 
 //    private static void registraCompra(Produto[] listaProduto, Estoque estoqueCliente) {
 //        int produtoAComprar = buscaProduto(listaProduto, estoqueCliente);
@@ -79,19 +83,9 @@ public class Main {
         System.out.print("Margem de lucro: ");
         float margemLucro = sc.nextFloat();
         Produto produto = new Produto(descricao, precoCusto, margemLucro);
-        estoqueCliente.cadastrar(produto);
+        System.out.println("Digite a quantidade que deseja adicionar:");
+        int qtd = sc.nextInt();
 
-        System.out.println(estoqueCliente);
-    }
-
-    private static int proximoItem(Produto[] listaProduto, int item) {
-        if (listaProduto[item] == null){
-            return item;
-        } else {
-            item++;
-            proximoItem(listaProduto, item);
-        }
-
-        return 0;
+        estoqueCliente.adicionaItemEstoque(produto,qtd);
     }
 }

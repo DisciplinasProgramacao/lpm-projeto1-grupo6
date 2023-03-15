@@ -1,3 +1,4 @@
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,11 @@ import java.util.List;
  * gastos.
  */
 class Estoque {
-	private static int QUANTIDADE_MINIMA = 20;
+	private static final int QUANTIDADE_MINIMA = 20;
 	private ItemEstoque[] itens;
 
-	public Estoque(ItemEstoque[] itens) {
-		this.itens = itens;
+	public Estoque(int qtd) {
+		this.itens = new ItemEstoque[qtd];
 	}
 
 	/**
@@ -79,6 +80,20 @@ class Estoque {
 		}
 
 		return produtos;
+	}
+
+	public void adicionaItemEstoque(Produto produto, int qtd) throws InvalidParameterException {
+		if (qtd < Estoque.QUANTIDADE_MINIMA){
+			throw new InvalidParameterException("QUANTIDADE DEVE SER MAIOR QUE A MÍNIMA");
+		}
+		ItemEstoque itemEstoque = new ItemEstoque(produto, qtd);
+		for (int i = 0; i < itens.length; i++){
+			if (itens[i] == null){
+				itens[i] = itemEstoque;
+				break;
+			}
+		}
+
 	}
 
 	public ItemEstoque[] getItens() {
