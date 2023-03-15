@@ -29,12 +29,22 @@ public class Main {
 
             case 1:
                 registraVenda(estoqueCliente);
+                break;
+            case 2:
+                registraCompra(estoqueCliente);
+                break;
+            case 3:
+                consultaQuantidade(estoqueCliente);
+                break;
+            case 4:
+                consultaQuantidadeTotal(estoqueCliente);
+                break;
+            case 5:
+                consultaBalanco(estoqueCliente);
+                break;
             case 6:
                 cadastraProduto(estoqueCliente);
                 break;
-//            case 2:
-//                registraCompra(listaProduto, estoqueCliente);
-//                break;
         }
     }
 
@@ -48,30 +58,33 @@ public class Main {
         estoqueCliente.registrarRetirada(itemEstoque.getProduto(), quantidade, false);
     }
 
+    private static void registraCompra(Estoque estoqueCliente) {
 
-//    private static void registraCompra(Produto[] listaProduto, Estoque estoqueCliente) {
-//        int produtoAComprar = buscaProduto(listaProduto, estoqueCliente);
-//
-//        if (produtoAComprar == 0){
-//            System.out.println("Ainda não há esse produto cadastrado no estoque");
-//            System.out.println("Cadastrar? S/N");
-//            if (sc.nextLine().equals("S")){
-//                cadastraProduto(listaProduto, estoqueCliente);
-//
-//            }
-//        }
-//
-//        System.out.println("Digite o id do produto que devera ser comprado: ");
-//        int id = sc.nextInt();
-//        for (Produto produtos : listaProduto){
-//            if (produtos.getId() == id){
-//                for (listaProduto[])
-//            }
-//        }
-//        estoqueCliente.registrarCompra();
-//
-//
-//    }
+        System.out.println("Digite o id do produto a ser comprado: ");
+        int id = sc.nextInt();
+        System.out.println("Digite a quantidade do produto");
+        int quantidade = sc.nextInt();
+        ItemEstoque itemEstoque = estoqueCliente.retornaItem(id);
+        estoqueCliente.registrarCompra(itemEstoque.getProduto(), quantidade);
+    }
+
+    private static void consultaQuantidade(Estoque estoqueCliente) {
+
+        System.out.println("Digite o id do produto a ser consultado: ");
+        int id = sc.nextInt();
+        ItemEstoque itemEstoque = estoqueCliente.retornaItem(id);
+        System.out.println("O item pesquisado possui" + itemEstoque.getQuantidade() + "unidades em estoque");
+    }
+
+    private static void consultaQuantidadeTotal(Estoque estoqueCliente) {
+
+        System.out.println("Há" + estoqueCliente.quantidadeTotalProdutos() + "itens no estoque");
+    }
+
+    private static void consultaBalanco(Estoque estoqueCliente) {
+
+        System.out.println("Há R$" + estoqueCliente.quantidadeTotalProdutos() + "em produtos");
+    }
 
     private static void cadastraProduto(Estoque estoqueCliente){
 
