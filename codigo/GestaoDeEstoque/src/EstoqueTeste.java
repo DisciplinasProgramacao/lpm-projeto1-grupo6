@@ -4,26 +4,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EstoqueTeste {
-//	private Estoque estoqueCheio;
-//	private Produto[] listaProduto;
-//
-//	@BeforeEach
-//	public void initEach() {
-//		estoqueCheio = new Estoque(5);
-//
-//		listaProduto = new Produto[5];
-//		listaProduto[0] = new Produto("Pão", 10, 30);
-//		listaProduto[1] = new Produto("Banana", 15, 35);
-//		listaProduto[2] = new Produto("Maçã", 20, 40);
-//		listaProduto[3] = new Produto("Cerveja", 25, 45);
-//		listaProduto[4] = new Produto("Picanha", 30, 50);
-//
-//		estoqueCheio.cadastrar(listaProduto[0]);
-//		estoqueCheio.cadastrar(listaProduto[1]);
-//		estoqueCheio.cadastrar(listaProduto[2]);
-//		estoqueCheio.cadastrar(listaProduto[3]);
-//		estoqueCheio.cadastrar(listaProduto[4]);
-//	}
+	private Estoque estoqueCheio;
+    private Produto produto;
+
+	@BeforeEach
+	public void initEach() {
+		estoqueCheio = new Estoque(5);
+        produto = new Produto("bala", 100, 50);
+        estoqueCheio.adicionaItemEstoque(produto, 29);
+    
+
+	}
+
+    @Test
+    public void adicionouCorretamente(){
+        assertEquals(29,estoqueCheio.quantidadeTotalProdutos());
+    }
+
+    @Test
+    public void naoPodeRetirarMaisdoQueTem(){
+        estoqueCheio.registrarRetirada(produto, 30, false);
+        assertEquals(29,estoqueCheio.quantidadeTotalProdutos());
+    }
 //
 //	@Test
 //	public void reporEstoqueIncrementaAQuantidade() {
